@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Paper Hour</title>
+  <meta name="description" content="A quiet desk on the internet. Write privately. Mark a note public and it can take the hour." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="hour-hand" aria-hidden="true"></div>
+  <header class="mast">
+    <a class="mark" href="#front"><span class="dot"></span>The Paper Hour</a>
+    <nav>
+      <button data-go="front">Front</button>
+      <button data-go="wall">Public wall</button>
+      <button data-go="desk" class="need-auth">Desk</button>
+    </nav>
+    <div class="session">
+      <button id="authOpen">Sign in</button>
+      <button id="signOut" hidden>Leave</button>
+    </div>
+  </header>
+  <main>
+    <section id="front" class="panel on">
+      <p class="kicker">Edition <span id="hourLabel">—</span> <span class="tick" id="tick">00:00</span></p>
+      <article id="feature" class="feature"><p class="quiet">The hour is still empty. Write something and mark it public.</p></article>
+    </section>
+    <section id="wall" class="panel">
+      <header class="panel-head"><h2>On the wall</h2><p>Anything a member marks public lands here. The hour picks from this pile.</p></header>
+      <div id="wallGrid" class="wall"></div>
+    </section>
+    <section id="desk" class="panel">
+      <header class="panel-head"><h2>Your desk</h2><p>Drafts stay private. Flip the public switch and the room can see it.</p></header>
+      <form id="compose" class="compose">
+        <input name="title" maxlength="120" placeholder="A title that doesn’t shout" required />
+        <textarea name="body" rows="8" maxlength="8000" placeholder="Write the thing itself." required></textarea>
+        <label class="switch"><input type="checkbox" name="is_public" /><span>Mark public</span></label>
+        <button type="submit">Save to desk</button>
+      </form>
+      <div id="mine" class="mine"></div>
+    </section>
+  </main>
+  <dialog id="gate">
+    <form id="authForm" method="dialog">
+      <h3 id="gateTitle">Come in</h3>
+      <p class="hint">Email and a password. No noise, no social buttons.</p>
+      <input name="email" type="email" autocomplete="email" placeholder="you@somewhere" required />
+      <input name="password" type="password" minlength="8" autocomplete="current-password" placeholder="password, eight or more" required />
+      <input name="handle" id="handleField" placeholder="handle (signup only)" maxlength="24" />
+      <div class="row">
+        <button type="submit">Enter</button>
+        <button type="button" id="toggleMode" class="ghost">Need an account</button>
+      </div>
+      <p id="authErr" class="err" hidden></p>
+    </form>
+  </dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
